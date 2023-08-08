@@ -1,3 +1,5 @@
+import { ctx } from "../graphics/driver.js";
+
 class Runner {
     
     constructor() {
@@ -19,8 +21,10 @@ class Runner {
     start() {
         this.stopped = false;
 
+        this.fixedUpdate();
         this.intervalID = setInterval(this.fixedUpdate, this.fixedUpdateDelta);
         this.RAFID = requestAnimationFrame(this.update);
+        
     }
 
     fixedUpdate() {
@@ -34,6 +38,8 @@ class Runner {
     }
 
     update(timestamp) {
+        ctx.clearRect(0,0,ctx.canvas.width,ctx.canvas.height);
+        if (this.lastUpdate === 0) this.lastUpdate = timestamp;
         const deltaTime = timestamp - this.lastUpdate;
         this.lastUpdate = timestamp;
         this.entities.forEach((e) => {
