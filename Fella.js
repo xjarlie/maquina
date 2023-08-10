@@ -1,22 +1,32 @@
 import Entity from "./core/Entity.js";
-import Vector, { Vec2 } from "./core/Vector.js";
 import { keyPressed } from "./core/keyMap.js";
+import CircleGeoSprite from "./graphics/CircleGeoSprite.js";
 import GeoSprite from "./graphics/GeoSprite.js";
+import RegularGeoSprite from "./graphics/RegularGeoSprite.js";
 
 class Fella extends Entity {
     constructor() {
         super();
 
         this.group = 'fellas';
-        this.sprite = new GeoSprite();
-        this.sprite.color = 'blue';
+        this.sprite1 = new GeoSprite();
+        this.sprite1.color = 'blue';
+
+        this.sprite2 = new GeoSprite(60, 60);
+
+        this.sprite3 = new CircleGeoSprite(40);
+        this.sprite3.color = 'purple';
+
+        this.sprite = this.sprite3;
     }
 
     update(deltaTime) {
 
-        const deltaSec = deltaTime/1000;
-        const moveAmt = deltaSec * 100;
+        this.sprite.draw(this.position);
+    }
 
+    fixedUpdate(ticks) {
+        const moveAmt = 1.7;
         if (keyPressed('ArrowRight')) {
             this.position.x += moveAmt;
         }
@@ -33,11 +43,9 @@ class Fella extends Entity {
             this.position.y += moveAmt;
         }
 
-        this.sprite.draw(this.position);
-    }
-
-    fixedUpdate() {
-
+        if (ticks % 60 === 0 && keyPressed('p')) {
+            this.sprite = new RegularGeoSprite(this.sprite.sides+1, 30);
+        }
     }
 }
 

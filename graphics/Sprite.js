@@ -1,5 +1,5 @@
 class Sprite {
-    draw() {
+    draw(position) {
 
     }
 }

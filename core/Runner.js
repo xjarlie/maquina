@@ -16,6 +16,8 @@ class Runner {
         this.update = this.update.bind(this);
 
         this.lastUpdate = 0;
+
+        this.fixedTicks = 0;
     }
 
     start() {
@@ -32,8 +34,10 @@ class Runner {
             return;
         }
 
+        this.fixedTicks++;
+
         this.entities.forEach((e) => {
-            e.fixedUpdate();
+            e.fixedUpdate(this.fixedTicks);
         });
     }
 
