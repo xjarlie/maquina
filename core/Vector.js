@@ -9,7 +9,7 @@ class Vector {
     }
 }
 
-function Vec2(x, y) {
+function Vec2(x = 0, y = 0) {
     return new Vector(x, y);
 }
 

@@ -1,12 +1,11 @@
 import { Vec2 } from "../core/Vector.js";
-import Sprite from "./Sprite.js";
+import GeoSprite from "./GeoSprite.js";
 import { ctx } from "./driver.js";
 
-class RegularGeoSprite extends Sprite {
-    constructor(sides = 4, radius = 50) {
+class RegularGeoSprite extends GeoSprite {
+    constructor(sides = 3, radius = 50) {
         super();
 
-        this.color = 'white';
         this.radius = radius;
         this.sides = sides;
 
@@ -15,8 +14,6 @@ class RegularGeoSprite extends Sprite {
         this.sideLength = 2 * radius * Math.sin(rad);
 
         console.log(this.angle, this.sideLength);
-
-        this.points = [];
 
         const pointAngle = 2 * Math.PI / sides;
         for (let i = 0; i < sides; i++) {
@@ -36,18 +33,6 @@ class RegularGeoSprite extends Sprite {
         console.log(this.points);
     }
 
-    draw(position) {
-
-        ctx.beginPath();
-        ctx.fillStyle = this.color;
-        const lastPoint = this.points[this.points.length-1];
-        ctx.moveTo(lastPoint.x+position.x, lastPoint.y+position.y);
-
-        for (const point of this.points) {
-            ctx.lineTo(point.x+position.x, point.y+position.y);
-        }
-        ctx.fill();
-    }
 }
 
 export default RegularGeoSprite;

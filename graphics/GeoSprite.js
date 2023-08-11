@@ -1,18 +1,28 @@
+import { Vec2 } from "../core/Vector.js";
 import Sprite from "./Sprite.js";
 import { ctx } from "./driver.js";
 
 class GeoSprite extends Sprite {
 
-    constructor(width = 50, height = 50) {
+    constructor(points = [Vec2(0,0)]) {
         super();
+        
+        this.points = points;
         this.color = 'white';
-        this.width = width;
-        this.height = height;
     }
 
     draw(position) {
+
+        ctx.beginPath();
         ctx.fillStyle = this.color;
-        ctx.fillRect(position.x, position.y, this.width, this.height);
+        ctx.moveTo(this.points[0].x+position.x, this.points[0].y+position.y);
+
+        for (let i = 1; i < this.points.length; i++) {
+            ctx.lineTo(this.points[i].x + position.x, this.points[i].y + position.y);
+        }
+
+        ctx.fill();
+
     }
 
 }

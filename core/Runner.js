@@ -1,4 +1,5 @@
 import { ctx } from "../graphics/driver.js";
+import { fixedTick, fixedTicks, tick, ticks } from "./TickCounter.js";
 
 class Runner {
     
@@ -34,14 +35,16 @@ class Runner {
             return;
         }
 
-        this.fixedTicks++;
+        fixedTick();
 
         this.entities.forEach((e) => {
-            e.fixedUpdate(this.fixedTicks);
+            e.fixedUpdate(fixedTicks);
         });
     }
 
     update(timestamp) {
+        tick();
+
         ctx.clearRect(0,0,ctx.canvas.width,ctx.canvas.height);
         if (this.lastUpdate === 0) this.lastUpdate = timestamp;
         const deltaTime = timestamp - this.lastUpdate;
