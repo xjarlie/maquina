@@ -16,8 +16,11 @@ class AnimatedSprite extends Sprite {
     draw(position) {
         const currentFrameTime = this.frameTimes[this.currentSprite] || this.frameTimes[0];
         let shouldChangeFrame = false;
-        if (this.runFixed && fixedTicks > this.currentSpriteTime + currentFrameTime) {
-            shouldChangeFrame = true;
+
+        if (this.runFixed) {
+            if (fixedTicks > this.currentSpriteTime + currentFrameTime) {
+                shouldChangeFrame = true;
+            }
         } else if (ticks > this.currentSpriteTime + currentFrameTime) {
             shouldChangeFrame = true;
         }

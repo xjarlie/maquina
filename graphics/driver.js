@@ -1,4 +1,8 @@
+import Vector, { Vec2 } from "../core/Vector.js";
+import Camera from "./Camera.js";
+
 export let ctx;
+export const camera = new Camera();
 
 export function canvasSetup(width = 800, height = 600) {
     const body = document.querySelector('body');
@@ -9,4 +13,6 @@ export function canvasSetup(width = 800, height = 600) {
     canvas.style.backgroundColor = 'black';
     body.append(canvas);
     ctx = canvas.getContext('2d');
+
+    camera.setCenter();
 }

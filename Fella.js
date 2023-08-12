@@ -6,6 +6,7 @@ import CircleGeoSprite from "./graphics/CircleGeoSprite.js";
 import GeoSprite from "./graphics/GeoSprite.js";
 import RectGeoSprite from "./graphics/RectGeoSprite.js";
 import RegularGeoSprite from "./graphics/RegularGeoSprite.js";
+import { camera } from "./graphics/driver.js";
 
 class Fella extends Entity {
     constructor() {
@@ -43,14 +44,27 @@ class Fella extends Entity {
             new RegularGeoSprite(15, 40),
             new RegularGeoSprite(16, 40),
             new RegularGeoSprite(17, 40),
-        ], [100, 5, 5, 5, 5, 5]);
+            new RegularGeoSprite(16, 40),
+            new RegularGeoSprite(15, 40),
+            new RegularGeoSprite(14, 40),
+            new RegularGeoSprite(13, 40),
+            new RegularGeoSprite(12, 40),
+            new RegularGeoSprite(11, 40),
+            new RegularGeoSprite(10, 40),
+            new RegularGeoSprite(9, 40),
+            new RegularGeoSprite(8, 40),
+            new RegularGeoSprite(7, 40),
+            new RegularGeoSprite(6, 40),
+            new RegularGeoSprite(5, 40),
+            new RegularGeoSprite(4, 40)
+        ], [1]);
+        this.animatedSprite.runFixed = true;
 
         this.sprite = this.animatedSprite;
     }
 
     update(deltaTime) {
-
-        this.sprite.draw(this.position);
+        camera.render(this);
     }
 
     fixedUpdate(ticks) {
