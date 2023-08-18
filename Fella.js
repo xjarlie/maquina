@@ -4,10 +4,13 @@ import { keyPressed } from "./core/keyMap.js";
 import AnimatedSprite from "./graphics/AnimatedSprite.js";
 import CircleGeoSprite from "./graphics/CircleGeoSprite.js";
 import GeoSprite from "./graphics/GeoSprite.js";
+import ImageSprite from "./graphics/ImageSprite.js";
 import RectGeoSprite from "./graphics/RectGeoSprite.js";
 import RegularGeoSprite from "./graphics/RegularGeoSprite.js";
 import { camera } from "./graphics/driver.js";
-
+import spooderImg from "./img/spooder.json" assert {type: 'json'};
+import helloSheet from "./img/hello.json" assert {type: 'json'};
+ 
 class Fella extends Entity {
     constructor() {
         super();
@@ -60,14 +63,32 @@ class Fella extends Entity {
         ], [1]);
         this.animatedSprite.runFixed = true;
 
-        this.sprite = this.animatedSprite;
+        this.imageSprite = new ImageSprite(spooderImg, Vec2(100, 100));
+
+        const helloFrames = [];
+        // 32x32
+        for (let i = 0; i < 5; i++) {
+            const sprite = new ImageSprite(helloSheet);
+            sprite.size = Vec2(400, 400);
+            sprite.imgStartPosition = Vec2(
+                i * 32,
+                0
+            );
+            sprite.sourceSize = Vec2(32, 32);
+            helloFrames[i] = sprite;
+        }   
+        this.helloAnimation = new AnimatedSprite(helloFrames, [20]);
+
+        this.autoHello = AnimatedSprite.fromSpriteSheet(helloSheet, Vec2(200, 200), 5, 5, 1, [5]);
+        
+        this.sprite = this.autoHello;
     }
 
-    update(deltaTime) {
+    update() {
         camera.render(this);
     }
 
-    fixedUpdate(ticks) {
+    fixedUpdate() {
         const moveAmt = 1.7;
         if (keyPressed('d')) {
             this.position.x += moveAmt;

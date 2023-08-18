@@ -23,7 +23,7 @@ canvasSetup();
 runner.start();
 
 const wall = new Entity();
-wall.position = Vec2(50, 50);
+wall.position = Vec2(0, 0);
 wall.sprite = new RectGeoSprite(500, 30);
 wall.update = () => {
     camera.render(wall);

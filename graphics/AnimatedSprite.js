@@ -1,4 +1,6 @@
 import { fixedTicks, ticks } from "../core/TickCounter.js";
+import { Vec2 } from "../core/Vector.js";
+import ImageSprite from "./ImageSprite.js";
 import Sprite from "./Sprite.js";
 
 class AnimatedSprite extends Sprite {
@@ -36,6 +38,37 @@ class AnimatedSprite extends Sprite {
 
 
         this.frames[this.currentSprite].draw(position);
+    }
+
+    static fromSpriteSheet(sheet, size = Vec2(50,50), spriteNum, cols, rows, frameTimes = [5]) {
+        const image = new Image();
+        image.src = sheet;
+
+        const frames = [];
+
+        const sourceSize = Vec2(
+            image.width / cols,
+            image.height / rows
+        );
+
+        for (let i = 0; i < rows; i++) {
+            for (let j = 0; j < cols; j++) {
+                if (frames.length < spriteNum) {
+
+                    const sprite = new ImageSprite(sheet);
+                    sprite.size = size;
+                    sprite.sourceSize = sourceSize;
+                    sprite.imgStartPosition = Vec2(
+                        j * sourceSize.x,
+                        i * sourceSize.y
+                    );
+                    frames.push(sprite);
+                }
+            }
+        }
+
+        return new AnimatedSprite(frames, frameTimes);
+
     }
 }
 
