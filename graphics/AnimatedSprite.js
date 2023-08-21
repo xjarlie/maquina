@@ -40,15 +40,16 @@ class AnimatedSprite extends Sprite {
         this.frames[this.currentSprite].draw(position);
     }
 
-    static fromSpriteSheet(sheet, size = Vec2(50,50), spriteNum, cols, rows, frameTimes = [5]) {
+    static fromSpriteSheet(sheet, sheetSize, spriteSize = Vec2(50,50), spriteNum, cols, rows, frameTimes = [5]) {
         const image = new Image();
         image.src = sheet;
+        image.onload = () => console.log('loadimage')
 
         const frames = [];
 
         const sourceSize = Vec2(
-            image.width / cols,
-            image.height / rows
+            sheetSize.x / cols,
+            sheetSize.y / rows
         );
 
         for (let i = 0; i < rows; i++) {
@@ -56,7 +57,7 @@ class AnimatedSprite extends Sprite {
                 if (frames.length < spriteNum) {
 
                     const sprite = new ImageSprite(sheet);
-                    sprite.size = size;
+                    sprite.size = spriteSize;
                     sprite.sourceSize = sourceSize;
                     sprite.imgStartPosition = Vec2(
                         j * sourceSize.x,
@@ -66,6 +67,8 @@ class AnimatedSprite extends Sprite {
                 }
             }
         }
+
+        console.log(frames)
 
         return new AnimatedSprite(frames, frameTimes);
 

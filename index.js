@@ -5,28 +5,42 @@ import { Vec2 } from "./core/Vector.js";
 import { keyListener } from "./core/keyMap.js";
 import RectGeoSprite from "./graphics/RectGeoSprite.js";
 import { camera, canvasSetup } from "./graphics/driver.js";
+import { MatterDriver, physicsDriver } from "./physics/driver.js";
 
-const runner = new Runner();
-runner.fixedUpdateDelta = 17;
+function main() {
+    console.log('here');
 
-const lilFella = new Fella();
+    const runner = new Runner();
+    runner.fixedUpdateDelta = 17;
+    runner.entities.set(camera.id, camera);
+    runner.entities.set(physicsDriver.id, physicsDriver);
 
-runner.entities.set(lilFella.id, lilFella);
+    const lilFella = new Fella();
 
-runner.entities.set(camera.id, camera);
+    runner.entities.set(lilFella.id, lilFella);
 
-window.addEventListener("keydown", (key) => {keyListener(key, 'down')});
-window.addEventListener("keyup", (key) => {keyListener(key, 'up')});
+    window.addEventListener("keydown", (key) => { keyListener(key, 'down') });
+    window.addEventListener("keyup", (key) => { keyListener(key, 'up') });
 
-canvasSetup();
+    canvasSetup();
 
-runner.start();
+    runner.start();
 
-const wall = new Entity();
-wall.position = Vec2(0, 0);
-wall.sprite = new RectGeoSprite(500, 30);
-wall.update = () => {
-    camera.render(wall);
+    const wall = new Entity();
+    wall.position = Vec2(0, 0);
+    wall.sprite = new RectGeoSprite(500, 30);
+    wall.update = () => {
+        camera.render(wall);
+    }
+    wall.body = MatterDriver.CreateBody(Vec2(500,30), {
+        isStatic: true
+    });
+    wall.body.position = wall.position;
+
+    runner.entities.set(wall.id, wall);
+
 }
 
-runner.entities.set(wall.id, wall);
+document.querySelector('body').onload = () => {
+    main();
+}

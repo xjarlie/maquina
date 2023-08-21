@@ -10,7 +10,7 @@ export function canvasSetup(width = 800, height = 600) {
     canvas.id = 'canvas';
     canvas.width = width;
     canvas.height = height;
-    canvas.style.backgroundColor = 'black';
+    canvas.style.backgroundColor = 'blue';
     body.append(canvas);
     ctx = canvas.getContext('2d');
 

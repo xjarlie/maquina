@@ -32,6 +32,8 @@ class Camera extends Entity {
     }
 
     update(deltaTime) {
+        ctx.clearRect(0,0,ctx.canvas.width,ctx.canvas.height);
+
         if (keyPressed('ArrowRight')) {
             this.translate(Vec2(10, 0));
         }
