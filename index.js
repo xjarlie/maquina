@@ -5,15 +5,15 @@ import { Vec2 } from "./core/Vector.js";
 import { keyListener } from "./core/keyMap.js";
 import RectGeoSprite from "./graphics/RectGeoSprite.js";
 import { camera, canvasSetup } from "./graphics/driver.js";
-import { MatterDriver, physicsDriver } from "./physics/driver.js";
+import { updateWorld } from "./physics/driver.js";
 
 function main() {
-    console.log('here');
 
     const runner = new Runner();
     runner.fixedUpdateDelta = 17;
     runner.entities.set(camera.id, camera);
-    runner.entities.set(physicsDriver.id, physicsDriver);
+
+    runner.fixedProcesses.push(updateWorld);
 
     const lilFella = new Fella();
 
@@ -32,11 +32,6 @@ function main() {
     wall.update = () => {
         camera.render(wall);
     }
-    wall.body = MatterDriver.CreateBody(Vec2(500,30), {
-        isStatic: true
-    });
-    wall.body.position = wall.position;
-
     runner.entities.set(wall.id, wall);
 
 }

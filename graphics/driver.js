@@ -1,4 +1,4 @@
-import Vector, { Vec2 } from "../core/Vector.js";
+import { Vec2 } from "../core/Vector.js";
 import Camera from "./Camera.js";
 
 export let ctx;

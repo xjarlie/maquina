@@ -18,6 +18,9 @@ class Runner {
         this.lastUpdate = 0;
 
         this.fixedTicks = 0;
+
+        this.processes = [];
+        this.fixedProcesses = [];
     }
 
     start() {
@@ -29,12 +32,17 @@ class Runner {
         
     }
 
+
     fixedUpdate() {
         if (this.stopped) {
             return;
         }
 
         fixedTick();
+
+        for (const process of this.fixedProcesses) {
+            process();
+        }
 
         this.entities.forEach((e) => {
             e.fixedUpdate(fixedTicks);
@@ -47,6 +55,11 @@ class Runner {
         if (this.lastUpdate === 0) this.lastUpdate = timestamp;
         const deltaTime = timestamp - this.lastUpdate;
         this.lastUpdate = timestamp;
+
+        for (const process of this.processes) {
+            process(deltaTime);
+        }
+
         this.entities.forEach((e) => {
             e.update(deltaTime);
         });

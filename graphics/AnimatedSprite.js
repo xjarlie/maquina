@@ -43,7 +43,6 @@ class AnimatedSprite extends Sprite {
     static fromSpriteSheet(sheet, sheetSize, spriteSize = Vec2(50,50), spriteNum, cols, rows, frameTimes = [5]) {
         const image = new Image();
         image.src = sheet;
-        image.onload = () => console.log('loadimage')
 
         const frames = [];
 
@@ -67,8 +66,6 @@ class AnimatedSprite extends Sprite {
                 }
             }
         }
-
-        console.log(frames)
 
         return new AnimatedSprite(frames, frameTimes);
 
