@@ -8,7 +8,7 @@ import ImageSprite from "./graphics/ImageSprite.js";
 import RectGeoSprite from "./graphics/RectGeoSprite.js";
 import RegularGeoSprite from "./graphics/RegularGeoSprite.js";
 import { camera } from "./graphics/driver.js";
-import spooderImg from "./img/spooder.json" assert {type: 'json'};
+// import spooderImg from "./img/spooder.json" assert {type: 'json'};
 import helloSheet from "./img/hello.js";
 import runSheet from "./img/run.js";
 import runFlipSheet from "./img/runflip.js";
